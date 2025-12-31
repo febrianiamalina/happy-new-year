@@ -150,6 +150,34 @@
     openBtn.addEventListener("click", handleOpenClick);
 
     function movePopup() {
-      const vw = window.inne
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const x = Math.random() * (vw - 320);
+      const y = Math.random() * (vh - 200);
+      popup.style.left = x + "px";
+      popup.style.top = y + "px";
+      popup.style.transform = "none";
+    }
+
+    function handleOpenClick() {
+      clickCount++;
+
+      if (clickCount <= 7) movePopup();
+
+      if (clickCount === 1) taunt.textContent = "Catch me if you can!";
+      if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
+      if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
+      if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
+
+      if (clickCount === 8) {
+        // Play XP sound
+        const audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-startup.mp3');
+        audio.play();
+
+        popup.style.display = "none";
+        messageBox.style.display = "block";
+      }
+    }
+  </script>
 </body>
 </html>
