@@ -196,15 +196,18 @@
 
       // 🟢 Move to fully random position on screen
       if (clickCount < 8) {
-        const maxX = window.innerWidth - popup.offsetWidth;
-        const maxY = window.innerHeight - popup.offsetHeight;
 
-        const randX = Math.random() * maxX;
-        const randY = Math.random() * maxY;
+          // 🟢 Remove the restricting center transform so movement becomes real
+          popup.style.transform = "none";
 
-        popup.style.position = "fixed";
-        popup.style.left = randX + "px";
-        popup.style.top = randY + "px";
+          const maxX = window.innerWidth - popup.offsetWidth;
+          const maxY = window.innerHeight - popup.offsetHeight;
+
+          const randX = Math.random() * maxX;
+          const randY = Math.random() * maxY;
+
+          popup.style.left = randX + "px";
+          popup.style.top = randY + "px";
       }
 
       if (clickCount === 1) taunt.textContent = "Catch me if you can!";
