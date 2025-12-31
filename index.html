@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy New Year</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fceefc;
+      text-align: center;
+      padding-top: 80px;
+    }
+    h1 {
+      font-size: 48px;
+      color: #d43f8d;
+    }
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border: 2px solid black;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 300px;
+    }
+    #openBtn {
+      position: relative;
+      padding: 10px 20px;
+      background: #ff66aa;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    #messageBox {
+      display: none;
+      margin: 40px auto;
+      width: 60%;
+      background: #fff;
+      border: 2px solid #d43f8d;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy New Year!</h1>
+
+  <button id="showPopup">Click here :)</button>
+
+  <div id="popup">
+    <p><strong>You have one message!</strong></p>
+    <p id="taunt"></p>
+    <button id="openBtn">Open</button>
+  </div>
+
+  <div id="messageBox">
+    <p>Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already. I wish I were there, so I could force you to play a snowball. Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!! I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax. I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
+    - Lots of love and laughs, Febri</p>
+  </div>
+
+  <script>
+    const showPopup = document.getElementById("showPopup");
+    const popup = document.getElementById("popup");
+    const openBtn = document.getElementById("openBtn");
+    const taunt = document.getElementById("taunt");
+    const messageBox = document.getElementById("messageBox");
+
+    let clickCount = 0;
+
+    showPopup.onclick = () => {
+      popup.style.display = "block";
+      showPopup.style.display = "none";
+    };
+
+    openBtn.addEventListener("mouseover", moveButton);
+    openBtn.addEventListener("click", handleOpenClick);
+
+    function moveButton() {
+      if (clickCount < 7) {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 200 - 100;
+        openBtn.style.transform = `translate(${x}px, ${y}px)`;
+      }
+    }
+
+    function handleOpenClick() {
+      clickCount++;
+
+      if (clickCount === 1) {
+        taunt.textContent = "Catch me if you can!";
+      }
+      if (clickCount === 3) {
+        taunt.textContent = "Haidee, you can do it!";
+      }
+      if (clickCount === 6) {
+        taunt.textContent = "Ok, ok, you can open it now.";
+      }
+      if (clickCount === 7) {
+        taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
+      }
+
+      if (clickCount === 8) {
+        popup.style.display = "none";
+        messageBox.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
