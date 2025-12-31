@@ -139,26 +139,12 @@
       bottom: 20px;
       width: 220px;
       z-index: 1;
-    } {
-      position: absolute;
-      bottom: 200px;
-      left: 120px;
-      width: 80px;
-      height: 120px;
-      z-index: 1;
     }
     #lamp {
       position: fixed;
       right: 50px;
       bottom: 20px;
       width: 260px;
-      z-index: 1;
-    } {
-      position: absolute;
-      bottom: 200px;
-      right: 140px;
-      width: 50px;
-      height: 150px;
       z-index: 1;
     }
   </style>
@@ -216,11 +202,15 @@
 
       openBtn.addEventListener("click", () => {
           clickCount++;
+
+          // Make popup jump to random location
           if (clickCount <= 7) {
               const vw = window.innerWidth;
               const vh = window.innerHeight;
               const x = Math.random() * (vw - 320);
               const y = Math.random() * (vh - 200);
+
+              popup.style.position = "fixed";
               popup.style.left = x + "px";
               popup.style.top = y + "px";
               popup.style.transform = "none";
