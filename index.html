@@ -21,7 +21,6 @@
       position: relative;
       z-index: 5;
     }
-    /* Windows Classic / XP style */
     #popup {
       position: fixed;
       top: 50%;
@@ -47,6 +46,11 @@
       padding: 18px;
       font-family: Tahoma, sans-serif;
       font-size: 14px;
+    }
+    #taunt {
+      color: black;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
     #openBtn {
       padding: 6px 18px;
@@ -74,7 +78,6 @@
       z-index: 10;
       position: relative;
     }
-    /* Classic Windows titlebar buttons */
     .win-buttons button {
       width: 20px;
       height: 18px;
@@ -89,13 +92,11 @@
     .win-buttons button:active {
       border-color: #3a6ea5;
     }
-    /* XP Minimized effect */
     #popup.minimized {
       transform: translate(-50%, -50%) scale(0.1);
       opacity: 0.3;
       transition: 0.3s ease;
     }
-    /* Popup shake animation */
     @keyframes shake {
       0% { transform: translate(-50%, -50%) translateX(0); }
       25% { transform: translate(-50%, -50%) translateX(-6px); }
@@ -106,7 +107,6 @@
     #popup.shake {
       animation: shake 0.3s;
     }
-    /* Snow */
     .snow {
       position: fixed;
       top: -10px;
@@ -122,7 +122,6 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(110vh); }
     }
-    /* Background elements behind everything */
     #moon, #snowman, #lamp {
       position: absolute;
       z-index: 1;
@@ -147,34 +146,14 @@
   </div>
 
   <!-- Moon -->
-  <div id="moon" style="top:40px; right:80px; width:60px; height:60px; background:#f5f3ce; border-radius:50%; box-shadow:0 0 12px #fff8c6;"></div>
+  <img id="moon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Full_Moon_Luc_Viatour.jpg/120px-Full_Moon_Luc_Viatour.jpg" style="top:40px; right:80px; width:50px; height:50px;">
 
   <!-- Snowman -->
-  <div id="snowman" style="bottom:40px; left:120px; width:80px; height:150px;">
-    <div style="width:40px; height:40px; background:white; border-radius:50%; margin:auto; position: relative; bottom:0;"></div>
-    <div style="width:50px; height:50px; background:white; border-radius:50%; margin:auto; position: relative; bottom:0;"></div>
-    <div style="width:60px; height:60px; background:white; border-radius:50%; margin:auto; position: relative; bottom:0;"></div>
-    <!-- Face -->
-    <div style="position:absolute; top:20px; left:5px; width:5px; height:5px; background:black; border-radius:50%;"></div>
-    <div style="position:absolute; top:20px; right:5px; width:5px; height:5px; background:black; border-radius:50%;"></div>
-    <div style="position:absolute; top:30px; left:15px; width:20px; height:2px; background:black;"></div>
-    <!-- Hat -->
-    <div style="position:absolute; top:5px; left:10px; width:40px; height:10px; background:black;"></div>
-    <div style="position:absolute; top:0px; left:15px; width:30px; height:10px; background:black;"></div>
-    <!-- Scarf -->
-    <div style="position:absolute; top:50px; left:-5px; width:70px; height:6px; background:red; border-radius:3px;"></div>
-    <!-- Hands (branches) -->
-    <div style="position:absolute; top:60px; left:-15px; width:30px; height:2px; background:#663300; transform: rotate(-45deg);"></div>
-    <div style="position:absolute; top:60px; right:-15px; width:30px; height:2px; background:#663300; transform: rotate(45deg);"></div>
-  </div>
+  <img id="snowman" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Snowman_icon_transparent.png/120px-Snowman_icon_transparent.png" style="bottom:40px; left:120px; width:80px; height:120px;">
 
   <!-- European-style street lamp -->
-  <div id="lamp" style="bottom:0; right:140px; width:10px; height:180px; background:#333;">
-    <div style="position:absolute; top:-50px; left:-15px; width:40px; height:50px; background:#222; border-radius:6px 6px 0 0;"></div>
-    <div style="position:absolute; top:-45px; left:-10px; width:30px; height:40px; background:#ffd966; border-radius:4px; box-shadow:0 0 20px #ffd966;"></div>
-  </div>
+  <img id="lamp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Street_lamp_icon.png/80px-Street_lamp_icon.png" style="bottom:0; right:140px; width:50px; height:150px;">
 
-  <!-- Snowfall -->
   <script>
     for (let i = 0; i < 120; i++) {
       let snow = document.createElement('div');
@@ -196,6 +175,7 @@
 
     miniBtn.onclick = () => { popup.classList.toggle("minimized"); };
     closeBtn.onclick = () => { popup.classList.add("shake"); setTimeout(() => popup.classList.remove("shake"), 300); };
+
     openBtn.addEventListener("click", handleOpenClick);
 
     function movePopup() {
@@ -223,5 +203,10 @@
       }
     }
   </script>
+
+  <div id="messageBox">
+    <p>Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already. I wish I were there, so I could force you to play a snowball. Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!! I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax. I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
+    - Lots of love and laughs, Febri</p>
+  </div>
 </body>
 </html>
