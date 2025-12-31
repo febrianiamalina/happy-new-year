@@ -134,8 +134,20 @@
       box-shadow: 0 0 12px #fff8c6;
       z-index: 1;
     }
-    #snowman, #lamp {
+    #snowman {
       position: absolute;
+      bottom: 200px;
+      left: 120px;
+      width: 80px;
+      height: 120px;
+      z-index: 1;
+    }
+    #lamp {
+      position: absolute;
+      bottom: 200px;
+      right: 140px;
+      width: 50px;
+      height: 150px;
       z-index: 1;
     }
   </style>
@@ -157,68 +169,65 @@
     </div>
   </div>
 
-  <!-- Moon -->
   <div id="moon"></div>
 
-  <!-- Snowman and lamp images from repo -->
-  <img id="snowman" src="snowman.png" style="bottom:40px; left:120px; width:80px; height:120px;">
-  <img id="lamp" src="lamp.png" style="bottom:0; right:140px; width:50px; height:150px;">
-
-  <script>
-    // Snowfall animation
-    for (let i = 0; i < 120; i++) {
-      let snow = document.createElement('div');
-      snow.classList.add('snow');
-      snow.style.left = Math.random() * window.innerWidth + 'px';
-      snow.style.animationDuration = 3 + Math.random() * 5 + 's';
-      snow.style.opacity = 0.4 + Math.random() * 0.6;
-      document.body.appendChild(snow);
-    }
-
-    const popup = document.getElementById("popup");
-    const openBtn = document.getElementById("openBtn");
-    const taunt = document.getElementById("taunt");
-    const messageBox = document.getElementById("messageBox");
-    const closeBtn = document.querySelector(".closeBtn");
-    const miniBtn = document.querySelector(".miniBtn");
-
-    let clickCount = 0;
-
-    miniBtn.onclick = () => { popup.classList.toggle("minimized"); };
-    closeBtn.onclick = () => { popup.classList.add("shake"); setTimeout(() => popup.classList.remove("shake"), 300); };
-
-    openBtn.addEventListener("click", handleOpenClick);
-
-    function movePopup() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const x = Math.random() * (vw - 320);
-      const y = Math.random() * (vh - 200);
-      popup.style.left = x + "px";
-      popup.style.top = y + "px";
-      popup.style.transform = "none";
-    }
-
-    function handleOpenClick() {
-      clickCount++;
-      if (clickCount <= 7) movePopup();
-      if (clickCount === 1) taunt.textContent = "Catch me if you can!";
-      if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
-      if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
-      if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
-      if (clickCount === 8) {
-        const audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-startup.mp3');
-        audio.play();
-        popup.style.display = "none";
-        messageBox.style.display = "block";
-      }
-    }
-  </script>
+  <img id="snowman" src="snowman.png">
+  <img id="lamp" src="lamp.png">
 
   <div id="messageBox">
     <p>Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already. I wish I were there, so I could force you to play a snowball. Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!! I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax. I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
     - Lots of love and laughs, Febri</p>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const popup = document.getElementById("popup");
+      const openBtn = document.getElementById("openBtn");
+      const taunt = document.getElementById("taunt");
+      const messageBox = document.getElementById("messageBox");
+      const closeBtn = document.querySelector(".closeBtn");
+      const miniBtn = document.querySelector(".miniBtn");
+
+      let clickCount = 0;
+
+      // Snowfall
+      for (let i = 0; i < 120; i++) {
+        let snow = document.createElement('div');
+        snow.classList.add('snow');
+        snow.style.left = Math.random() * window.innerWidth + 'px';
+        snow.style.animationDuration = 3 + Math.random() * 5 + 's';
+        snow.style.opacity = 0.4 + Math.random() * 0.6;
+        document.body.appendChild(snow);
+      }
+
+      miniBtn.onclick = () => { popup.classList.toggle("minimized"); };
+      closeBtn.onclick = () => { popup.classList.add("shake"); setTimeout(() => popup.classList.remove("shake"), 300); };
+
+      openBtn.addEventListener("click", () => {
+          clickCount++;
+          if (clickCount <= 7) {
+              const vw = window.innerWidth;
+              const vh = window.innerHeight;
+              const x = Math.random() * (vw - 320);
+              const y = Math.random() * (vh - 200);
+              popup.style.left = x + "px";
+              popup.style.top = y + "px";
+              popup.style.transform = "none";
+          }
+
+          if (clickCount === 1) taunt.textContent = "Catch me if you can!";
+          if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
+          if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
+          if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
+
+          if (clickCount === 8) {
+              const audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-startup.mp3');
+              audio.play();
+              popup.style.display = "none";
+              messageBox.style.display = "block";
+          }
+      });
+    });
+  </script>
 </body>
 </html>
