@@ -10,9 +10,9 @@
       background: linear-gradient(#001531, #000814);
       text-align: center;
       padding-top: 80px;
-      overflow: hidden;
+      overflow-y: auto;
       position: relative;
-      height: 100vh;
+      min-height: 100vh;
       color: white;
     }
     h1 {
@@ -66,17 +66,18 @@
     }
     #messageBox {
       display: none;
-      margin: 40px auto;
-      width: 60%;
+      margin: 60px auto;
+      width: 70%;
       background: #fff;
       border: 2px solid #0a64ad;
-      padding: 20px;
+      padding: 25px;
       border-radius: 10px;
       font-size: 18px;
-      line-height: 1.6;
+      line-height: 1.7;
       font-family: Tahoma, sans-serif;
-      max-height: 70vh;
-      overflow-y: auto;
+      color: black;
+      z-index: 9999;
+      position: relative;
     }
     .win-buttons button {
       width: 20px;
@@ -88,39 +89,6 @@
       cursor: pointer;
       padding: 0;
       font-family: Tahoma, sans-serif;
-    }
-    .win-buttons button:active {
-      border-color: #3a6ea5;
-    }
-    #popup.minimized {
-      transform: translate(-50%, -50%) scale(0.1);
-      opacity: 0.3;
-      transition: 0.3s ease;
-    }
-    @keyframes shake {
-      0% { transform: translate(-50%, -50%) translateX(0); }
-      25% { transform: translate(-50%, -50%) translateX(-6px); }
-      50% { transform: translate(-50%, -50%) translateX(6px); }
-      75% { transform: translate(-50%, -50%) translateX(-6px); }
-      100% { transform: translate(-50%, -50%) translateX(0); }
-    }
-    #popup.shake {
-      animation: shake 0.3s;
-    }
-    .snow {
-      position: fixed;
-      top: -10px;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      animation-name: snowFall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-    }
-    @keyframes snowFall {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(110vh); }
     }
     #moon {
       position: absolute;
@@ -147,6 +115,21 @@
       width: 260px;
       z-index: 1;
     }
+    .snow {
+      position: fixed;
+      top: -10px;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation-name: snowFall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+    @keyframes snowFall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(110vh); }
+    }
   </style>
 </head>
 <body>
@@ -167,13 +150,18 @@
   </div>
 
   <div id="moon"></div>
-
   <img id="snowman" src="snowman.png">
   <img id="lamp" src="lamp.png">
 
-  <div id="messageBox" style="z-index: 9999; position: relative;">
-    <p>Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already. I wish I were there, so I could force you to play a snowball. Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!! I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax. I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
-    - Lots of love and laughs, Febri</p>
+  <div id="messageBox">
+    <div>
+      Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already.<br><br>
+      I wish I were there, so I could force you to play a snowball.<br><br>
+      Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!!<br><br>
+      I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax.<br><br>
+      I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
+      — Lots of love and laughs, Febri
+    </div>
   </div>
 
   <script>
@@ -203,19 +191,6 @@
       openBtn.addEventListener("click", () => {
           clickCount++;
 
-          // Make popup jump to random location
-          if (clickCount <= 7) {
-              const vw = window.innerWidth;
-              const vh = window.innerHeight;
-              const x = Math.random() * (vw - 320);
-              const y = Math.random() * (vh - 200);
-
-              popup.style.position = "fixed";
-              popup.style.left = x + "px";
-              popup.style.top = y + "px";
-              popup.style.transform = "none";
-          }
-
           if (clickCount === 1) taunt.textContent = "Catch me if you can!";
           if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
           if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
@@ -224,7 +199,10 @@
           if (clickCount === 8) {
               const audio = new Audio('winter.mp3');
               audio.play();
+
               popup.style.display = "none";
+              popup.style.pointerEvents = "none";
+
               messageBox.style.display = "block";
           }
       });
