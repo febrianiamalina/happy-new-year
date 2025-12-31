@@ -15,47 +15,110 @@
       font-size: 48px;
       color: #d43f8d;
     }
+    /* Windows Classic / XP style */
     #popup {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
-      padding: 20px;
-      border: 2px solid black;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      width: 300px;
+      width: 320px;
+      border: 2px solid #003c74;
+      background: #ece9d8;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
+    #popup .titlebar {
+      background: #0a64ad;
+      color: white;
+      padding: 6px 10px;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: left;
+      border-bottom: 2px solid #003c74;
+      font-family: Tahoma, sans-serif;
+    }
+    #popup .content {
+      padding: 18px;
+      font-family: Tahoma, sans-serif;
+      font-size: 14px;
     }
     #openBtn {
-      position: relative;
-      padding: 10px 20px;
-      background: #ff66aa;
-      color: white;
-      border: none;
+      padding: 6px 18px;
+      background: #ece9d8;
+      border: 2px solid #7f9db9;
       cursor: pointer;
-      font-size: 16px;
-      border-radius: 6px;
+      font-size: 14px;
+      border-radius: 3px;
+      font-family: Tahoma, sans-serif;
+    }
+    #openBtn:active {
+      border-color: #3a6ea5;
     }
     #messageBox {
       display: none;
       margin: 40px auto;
       width: 60%;
       background: #fff;
-      border: 2px solid #d43f8d;
+      border: 2px solid #0a64ad;
       padding: 20px;
       border-radius: 10px;
       font-size: 18px;
       line-height: 1.6;
+      font-family: Tahoma, sans-serif;
     }
-  </style>
+      /* Classic Windows titlebar buttons */
+    .win-buttons button {
+      width: 20px;
+      height: 18px;
+      margin-left: 4px;
+      background: #ece9d8;
+      border: 2px solid #7f9db9;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 0;
+      font-family: Tahoma, sans-serif;
+    }
+    .win-buttons button:active {
+      border-color: #3a6ea5;
+    }
+    /* XP Minimized effect */
+    #popup.minimized {
+      transform: translate(-50%, -50%) scale(0.1);
+      opacity: 0.3;
+      transition: 0.3s ease;
+    }
+    /* Popup shake animation */
+    @keyframes shake {
+      0% { transform: translate(-50%, -50%) translateX(0); }
+      25% { transform: translate(-50%, -50%) translateX(-6px); }
+      50% { transform: translate(-50%, -50%) translateX(6px); }
+      75% { transform: translate(-50%, -50%) translateX(-6px); }
+      100% { transform: translate(-50%, -50%) translateX(0); }
+    }
+    #popup.shake {
+      animation: shake 0.3s;
+    }
+</style>
 </head>
 <body>
   <h1>Happy New Year!</h1>
 
   <div id="popup">
-    <p><strong>You have one message!</strong></p>
-    <p id="taunt"></p>
-    <button id="openBtn">Open</button>
+    <div class="titlebar">
+      <span>You have one message!</span>
+      <div class="win-buttons" style="float:right;">
+        <button class="miniBtn">_</button>
+        <button class="closeBtn">X</button>
+      </div>
+    </div>
+    <div class="content">
+      <p id="taunt"></p>
+      <button id="openBtn">Open</button>
+    </div>
+  </div>
+    <div class="content">
+      <p id="taunt"></p>
+      <button id="openBtn">Open</button>
+    </div>
   </div>
 
   <div id="messageBox">
@@ -68,36 +131,25 @@
     const openBtn = document.getElementById("openBtn");
     const taunt = document.getElementById("taunt");
     const messageBox = document.getElementById("messageBox");
+    const closeBtn = document.querySelector(".closeBtn");
+    const miniBtn = document.querySelector(".miniBtn");
 
     let clickCount = 0;
+
+    // Minimize button
+    miniBtn.onclick = () => {
+      popup.classList.toggle("minimized");
+    };
+
+    // Close button (shakes instead of closing)
+    closeBtn.onclick = () => {
+      popup.classList.add("shake");
+      setTimeout(() => popup.classList.remove("shake"), 300);
+    };
 
     openBtn.addEventListener("click", handleOpenClick);
 
     function movePopup() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const x = Math.random() * (vw - 300);
-      const y = Math.random() * (vh - 200);
-      popup.style.left = x + "px";
-      popup.style.top = y + "px";
-      popup.style.transform = "none";
-    }
-
-    function handleOpenClick() {
-      clickCount++;
-
-      if (clickCount <= 7) movePopup();
-
-      if (clickCount === 1) taunt.textContent = "Catch me if you can!";
-      if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
-      if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
-      if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
-
-      if (clickCount === 8) {
-        popup.style.display = "none";
-        messageBox.style.display = "block";
-      }
-    }
-  </script>
+      const vw = window.inne
 </body>
 </html>
