@@ -77,6 +77,7 @@
       font-family: Tahoma, sans-serif;
       z-index: 10;
       position: relative;
+      color: black;
     }
     .win-buttons button {
       width: 20px;
@@ -122,7 +123,18 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(110vh); }
     }
-    #moon, #snowman, #lamp {
+    #moon {
+      position: absolute;
+      top: 40px;
+      right: 80px;
+      width: 50px;
+      height: 50px;
+      background: #f5f3ce;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #fff8c6;
+      z-index: 1;
+    }
+    #snowman, #lamp {
       position: absolute;
       z-index: 1;
     }
@@ -146,15 +158,14 @@
   </div>
 
   <!-- Moon -->
-  <img id="moon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Full_Moon_Luc_Viatour.jpg/120px-Full_Moon_Luc_Viatour.jpg" style="top:40px; right:80px; width:50px; height:50px;">
+  <div id="moon"></div>
 
-  <!-- Snowman -->
-  <img id="snowman" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Snowman_icon_transparent.png/120px-Snowman_icon_transparent.png" style="bottom:40px; left:120px; width:80px; height:120px;">
-
-  <!-- European-style street lamp -->
-  <img id="lamp" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Street_lamp_icon.png/80px-Street_lamp_icon.png" style="bottom:0; right:140px; width:50px; height:150px;">
+  <!-- Snowman and lamp images from repo -->
+  <img id="snowman" src="snowman.png" style="bottom:40px; left:120px; width:80px; height:120px;">
+  <img id="lamp" src="lamp.png" style="bottom:0; right:140px; width:50px; height:150px;">
 
   <script>
+    // Snowfall animation
     for (let i = 0; i < 120; i++) {
       let snow = document.createElement('div');
       snow.classList.add('snow');
@@ -208,5 +219,6 @@
     <p>Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already. I wish I were there, so I could force you to play a snowball. Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!! I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax. I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
     - Lots of love and laughs, Febri</p>
   </div>
+
 </body>
 </html>
