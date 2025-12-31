@@ -75,9 +75,8 @@
       font-size: 18px;
       line-height: 1.6;
       font-family: Tahoma, sans-serif;
-      z-index: 10;
-      position: relative;
-      color: black;
+      max-height: 70vh;
+      overflow-y: auto;
     }
     .win-buttons button {
       width: 20px;
@@ -221,7 +220,7 @@
           if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
 
           if (clickCount === 8) {
-              const audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-startup.mp3');
+              const audio = new Audio('winter.mp3');
               audio.play();
               popup.style.display = "none";
               messageBox.style.display = "block";
