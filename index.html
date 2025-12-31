@@ -16,7 +16,6 @@
       color: #d43f8d;
     }
     #popup {
-      display: none;
       position: fixed;
       top: 50%;
       left: 50%;
@@ -53,8 +52,6 @@
 <body>
   <h1>Happy New Year!</h1>
 
-  <button id="showPopup">Click here :)</button>
-
   <div id="popup">
     <p><strong>You have one message!</strong></p>
     <p id="taunt"></p>
@@ -67,7 +64,6 @@
   </div>
 
   <script>
-    const showPopup = document.getElementById("showPopup");
     const popup = document.getElementById("popup");
     const openBtn = document.getElementById("openBtn");
     const taunt = document.getElementById("taunt");
@@ -75,37 +71,27 @@
 
     let clickCount = 0;
 
-    showPopup.onclick = () => {
-      popup.style.display = "block";
-      showPopup.style.display = "none";
-    };
-
-    openBtn.addEventListener("mouseover", moveButton);
     openBtn.addEventListener("click", handleOpenClick);
 
-    function moveButton() {
-      if (clickCount < 7) {
-        const x = Math.random() * 200 - 100;
-        const y = Math.random() * 200 - 100;
-        openBtn.style.transform = `translate(${x}px, ${y}px)`;
-      }
+    function movePopup() {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const x = Math.random() * (vw - 300);
+      const y = Math.random() * (vh - 200);
+      popup.style.left = x + "px";
+      popup.style.top = y + "px";
+      popup.style.transform = "none";
     }
 
     function handleOpenClick() {
       clickCount++;
 
-      if (clickCount === 1) {
-        taunt.textContent = "Catch me if you can!";
-      }
-      if (clickCount === 3) {
-        taunt.textContent = "Haidee, you can do it!";
-      }
-      if (clickCount === 6) {
-        taunt.textContent = "Ok, ok, you can open it now.";
-      }
-      if (clickCount === 7) {
-        taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
-      }
+      if (clickCount <= 7) movePopup();
+
+      if (clickCount === 1) taunt.textContent = "Catch me if you can!";
+      if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
+      if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
+      if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
 
       if (clickCount === 8) {
         popup.style.display = "none";
