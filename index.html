@@ -18,6 +18,8 @@
     h1 {
       font-size: 48px;
       color: #d43f8d;
+      position: relative;
+      z-index: 5;
     }
     /* Windows Classic / XP style */
     #popup {
@@ -29,6 +31,7 @@
       border: 2px solid #003c74;
       background: #ece9d8;
       box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      z-index: 10;
     }
     #popup .titlebar {
       background: #0a64ad;
@@ -68,8 +71,10 @@
       font-size: 18px;
       line-height: 1.6;
       font-family: Tahoma, sans-serif;
+      z-index: 10;
+      position: relative;
     }
-      /* Classic Windows titlebar buttons */
+    /* Classic Windows titlebar buttons */
     .win-buttons button {
       width: 20px;
       height: 18px;
@@ -101,6 +106,7 @@
     #popup.shake {
       animation: shake 0.3s;
     }
+    /* Snow */
     .snow {
       position: fixed;
       top: -10px;
@@ -116,7 +122,12 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(110vh); }
     }
-</style>
+    /* Background elements behind everything */
+    #moon, #snowman, #lamp {
+      position: absolute;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
   <h1>Happy New Year!</h1>
@@ -129,19 +140,51 @@
         <button class="closeBtn">X</button>
       </div>
     </div>
-    
     <div class="content">
       <p id="taunt"></p>
       <button id="openBtn">Open</button>
     </div>
   </div>
 
-  <div id="messageBox">
-    <p>Barevvv axchi! Happy new year! I met you just 3 months ago, but I miss your lion face already. I wish I were there, so I could force you to play a snowball. Anyway, I will dedicate this letter to remind you of how much you have improved this year: you've tried things you've never tried before, learned new stuffs, and gained new experiences (+ your first article was published yeay). I'm a proud friend!! I wish in 2026, many more doors will be open for you axchi. I look forward to my 10% friend-tax. I hope you'll never be bored with me because your life won't be fun without me :)<br><br>
-    - Lots of love and laughs, Febri</p>
+  <!-- Moon -->
+  <div id="moon" style="top:40px; right:80px; width:60px; height:60px; background:#f5f3ce; border-radius:50%; box-shadow:0 0 12px #fff8c6;"></div>
+
+  <!-- Snowman -->
+  <div id="snowman" style="bottom:40px; left:120px; width:80px; height:150px;">
+    <div style="width:40px; height:40px; background:white; border-radius:50%; margin:auto; position: relative; bottom:0;"></div>
+    <div style="width:50px; height:50px; background:white; border-radius:50%; margin:auto; position: relative; bottom:0;"></div>
+    <div style="width:60px; height:60px; background:white; border-radius:50%; margin:auto; position: relative; bottom:0;"></div>
+    <!-- Face -->
+    <div style="position:absolute; top:20px; left:5px; width:5px; height:5px; background:black; border-radius:50%;"></div>
+    <div style="position:absolute; top:20px; right:5px; width:5px; height:5px; background:black; border-radius:50%;"></div>
+    <div style="position:absolute; top:30px; left:15px; width:20px; height:2px; background:black;"></div>
+    <!-- Hat -->
+    <div style="position:absolute; top:5px; left:10px; width:40px; height:10px; background:black;"></div>
+    <div style="position:absolute; top:0px; left:15px; width:30px; height:10px; background:black;"></div>
+    <!-- Scarf -->
+    <div style="position:absolute; top:50px; left:-5px; width:70px; height:6px; background:red; border-radius:3px;"></div>
+    <!-- Hands (branches) -->
+    <div style="position:absolute; top:60px; left:-15px; width:30px; height:2px; background:#663300; transform: rotate(-45deg);"></div>
+    <div style="position:absolute; top:60px; right:-15px; width:30px; height:2px; background:#663300; transform: rotate(45deg);"></div>
   </div>
 
+  <!-- European-style street lamp -->
+  <div id="lamp" style="bottom:0; right:140px; width:10px; height:180px; background:#333;">
+    <div style="position:absolute; top:-50px; left:-15px; width:40px; height:50px; background:#222; border-radius:6px 6px 0 0;"></div>
+    <div style="position:absolute; top:-45px; left:-10px; width:30px; height:40px; background:#ffd966; border-radius:4px; box-shadow:0 0 20px #ffd966;"></div>
+  </div>
+
+  <!-- Snowfall -->
   <script>
+    for (let i = 0; i < 120; i++) {
+      let snow = document.createElement('div');
+      snow.classList.add('snow');
+      snow.style.left = Math.random() * window.innerWidth + 'px';
+      snow.style.animationDuration = 3 + Math.random() * 5 + 's';
+      snow.style.opacity = 0.4 + Math.random() * 0.6;
+      document.body.appendChild(snow);
+    }
+
     const popup = document.getElementById("popup");
     const openBtn = document.getElementById("openBtn");
     const taunt = document.getElementById("taunt");
@@ -151,17 +194,8 @@
 
     let clickCount = 0;
 
-    // Minimize button
-    miniBtn.onclick = () => {
-      popup.classList.toggle("minimized");
-    };
-
-    // Close button (shakes instead of closing)
-    closeBtn.onclick = () => {
-      popup.classList.add("shake");
-      setTimeout(() => popup.classList.remove("shake"), 300);
-    };
-
+    miniBtn.onclick = () => { popup.classList.toggle("minimized"); };
+    closeBtn.onclick = () => { popup.classList.add("shake"); setTimeout(() => popup.classList.remove("shake"), 300); };
     openBtn.addEventListener("click", handleOpenClick);
 
     function movePopup() {
@@ -176,49 +210,17 @@
 
     function handleOpenClick() {
       clickCount++;
-
       if (clickCount <= 7) movePopup();
-
       if (clickCount === 1) taunt.textContent = "Catch me if you can!";
       if (clickCount === 3) taunt.textContent = "Haidee, you can do it!";
       if (clickCount === 6) taunt.textContent = "Ok, ok, you can open it now.";
       if (clickCount === 7) taunt.textContent = "Got ya :p, sorry sorry don't be angryy, open it";
-
       if (clickCount === 8) {
-        // Play XP sound
         const audio = new Audio('https://www.myinstants.com/media/sounds/windows-xp-startup.mp3');
         audio.play();
-
         popup.style.display = "none";
         messageBox.style.display = "block";
       }
-    }
-  </script>
-  <!-- Moon -->
-  <div id="moon" style="position:absolute; top:40px; right:80px; width:120px; height:120px; background:#f5f3ce; border-radius:50%; box-shadow:0 0 20px #fff8c6;"></div>
-
-  <!-- Snowman -->
-  <div id="snowman" style="position:absolute; bottom:40px; left:120px;">
-    <div style="width:80px; height:80px; background:white; border-radius:50%; margin:auto;"></div>
-    <div style="width:110px; height:110px; background:white; border-radius:50%; margin-top:-10px;"></div>
-    <div style="width:150px; height:150px; background:white; border-radius:50%; margin-top:-10px;"></div>
-  </div>
-
-  <!-- Street Lamp -->
-  <div id="lamp" style="position:absolute; bottom:0; right:140px; width:20px; height:200px; background:#444;">
-    <div style="position:absolute; top:-60px; left:-30px; width:80px; height:60px; background:#222; border-radius:6px 6px 0 0;"></div>
-    <div style="position:absolute; top:-55px; left:-20px; width:60px; height:50px; background:#ffeb70; border-radius:4px; box-shadow:0 0 20px #ffeb70;"></div>
-  </div>
-
-  <!-- Snowfall -->
-  <script>
-    for (let i = 0; i < 120; i++) {
-      let snow = document.createElement('div');
-      snow.classList.add('snow');
-      snow.style.left = Math.random() * window.innerWidth + 'px';
-      snow.style.animationDuration = 3 + Math.random() * 5 + 's';
-      snow.style.opacity = 0.4 + Math.random() * 0.6;
-      document.body.appendChild(snow);
     }
   </script>
 </body>
